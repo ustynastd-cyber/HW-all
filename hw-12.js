@@ -9,8 +9,8 @@ user.mood = "happy";
 user.hobby = "skydiving";
 user.premium = false;
 
-for (const key of Object.keys(user)) {
-  console.log(`${key}:${user[key]}`);
+for (const [key, value] of Object.entries(user)) {
+  console.log(`${key}:${value}`);
 }
 
 function countProps(obj) {
@@ -64,8 +64,9 @@ function getAllPropValues(arr, prop) {
   const values = [];
 
   for (const item of arr) {
-    if (Object.hasOwn(item, prop)) {
-      values.push(item[prop]);
+    const { [prop]: value } = item;
+    if (value !== undefined) {
+      values.push(value);
     }
   }
 
@@ -85,8 +86,9 @@ function calculateTotalPrice(allProdcuts, productName) {
   let totalPrice = 0;
 
   for (const product of allProdcuts) {
-    if (product.name === productName) {
-      totalPrice += product.price * product.quantity;
+    const { name, price, quantity } = product;
+    if (name === productName) {
+      totalPrice += price * quantity;
     }
   }
 
